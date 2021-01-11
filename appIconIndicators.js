@@ -218,7 +218,7 @@ var RunningIndicatorBase = class DashToDock_RunningIndicatorBase extends Indicat
         // Fallback
         if (colorPalette === null) {
             this._source._iconContainer.set_style(
-                'border-radius: 5px;' +
+                'border-radius: 11px;' +
                 'background-gradient-direction: vertical;' +
                 'background-gradient-start: #e0e0e0;' +
                 'background-gradient-end: darkgray;'
@@ -228,7 +228,7 @@ var RunningIndicatorBase = class DashToDock_RunningIndicatorBase extends Indicat
         }
 
         this._source._iconContainer.set_style(
-            'border-radius: 5px;' +
+            'border-radius: 11px;' +
             'background-gradient-direction: vertical;' +
             'background-gradient-start: ' + colorPalette.original + ';' +
             'background-gradient-end: ' +  colorPalette.darker + ';'
@@ -403,10 +403,10 @@ var RunningIndicatorDots = class DashToDock_RunningIndicatorDots extends Running
             }
         }
 
-        // Define the radius as an arbitrary size, but keep large enough to account
-        // for the drawing of the border.
-        this._radius = Math.max(this._width/22, this._borderWidth/2);
-        this._padding = 0; // distance from the margin
+        // Dots need to be scaled by the scale factor. 
+        let scaleFactor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+        this._radius = 2*scaleFactor;
+        this._padding = 2; // distance from the margin
         this._spacing = this._radius + this._borderWidth; // separation between the dots
      }
 

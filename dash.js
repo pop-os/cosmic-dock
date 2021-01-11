@@ -65,7 +65,7 @@ class DashToDock_MyDashActor extends St.Widget {
         });
 
         super._init({
-            name: 'dash',
+            name: 'dock',
             layout_manager: layout,
             clip_to_allocation: true,
             ...(this._isHorizontal ? {
@@ -214,8 +214,8 @@ var MyDash = GObject.registerClass({
         this._box = new St.BoxLayout({
             vertical: !this._isHorizontal,
             clip_to_allocation: false,
-            x_align: rtl ? Clutter.ActorAlign.END : Clutter.ActorAlign.START,
-            y_align: Clutter.ActorAlign.START
+            x_align: Clutter.ActorAlign.CENTER,
+            y_align: Clutter.ActorAlign.CENTER,
         });
         this._box._delegate = this;
         this._container.add_actor(this._scrollView);
