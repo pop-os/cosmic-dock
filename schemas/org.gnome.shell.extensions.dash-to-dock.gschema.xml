@@ -46,7 +46,7 @@
   </enum>
   <schema path="/org/gnome/shell/extensions/dash-to-dock/" id="org.gnome.shell.extensions.dash-to-dock">
     <key name="dock-position" enum="org.gnome.shell.extensions.dash-to-dock.position">
-      <default>'LEFT'</default>
+      <default>'BOTTOM'</default>
       <summary>Dock position</summary>
       <description>Dock is shown on the Left, Right, Top or Bottom side of the screen.</description>
     </key>
@@ -76,7 +76,7 @@
       <description>Customize the background color of the dash.</description>
     </key>
     <key name="transparency-mode" enum="org.gnome.shell.extensions.dash-to-dock.transparency-mode">
-      <default>'DEFAULT'</default>
+      <default>'FIXED'</default>
       <summary>Transparency mode for the dock</summary>
       <description>FIXED: constant transparency. DYNAMIC: dock takes the opaque style only when windows are close to it.</description>
     </key>
@@ -106,7 +106,7 @@
       <description>Sets the opacity of the dash background when windows are close.</description>
     </key>
     <key type="d" name="background-opacity">
-      <default>0.8</default>
+      <default>1.0</default>
       <summary>Opacity of the dash background</summary>
       <description>Sets the opacity of the dash background  when in autohide mode.</description>
     </key>
@@ -141,7 +141,7 @@
       <description>Enable autohide in fullscreen mode.</description>
     </key>
     <key type="b" name="dock-fixed">
-      <default>false</default>
+      <default>true</default>
       <summary>Dock always visible</summary>
       <description>Dock is always visible</description>
     </key>
@@ -156,7 +156,7 @@
       <description>Set the allowed maximum dash icon size. Allowed range: 16..64.</description>
     </key>
     <key type="b" name="icon-size-fixed">
-      <default>false</default>
+      <default>true</default>
       <summary>Fixed icon size</summary>
       <description>Keep the icon size fived by scrolling the dock.</description>
     </key>
@@ -166,7 +166,7 @@
       <description>Apply customization to the dash appearance</description>
     </key>
     <key type="b" name="custom-theme-shrink">
-      <default>false</default>
+      <default>true</default>
       <summary>TODO</summary>
       <description>TODO</description>
     </key>
@@ -216,27 +216,27 @@
       <description>Show or hide favorite applications icons in the dash</description>
     </key>
     <key type="b" name="show-trash">
-      <default>true</default>
+      <default>false</default>
       <summary>Show trash can</summary>
       <description>Show or hide the trash can icon in the dash</description>
     </key>
     <key type="b" name="show-mounts">
-      <default>true</default>
+      <default>false</default>
       <summary>Show mounted volumes and devices</summary>
       <description>Show or hide mounted volume and device icons in the dash</description>
     </key>
     <key type="b" name="show-show-apps-button">
-      <default>true</default>
+      <default>false</default>
       <summary>Show applications button</summary>
       <description>Show applications button in the dash</description>
     </key>
     <key type="b" name="show-apps-at-top">
-      <default>false</default>
+      <default>true</default>
       <summary>Show application button at top</summary>
       <description>Show application button at top of the dash</description>
     </key>
     <key type="b" name="animate-show-apps">
-      <default>true</default>
+      <default>false</default>
       <summary>Animate Show Applications from the desktop</summary>
       <description>Animate Show Applications from the desktop</description>
     </key>
@@ -250,7 +250,7 @@
       <summary>Dock max height (fraction of available space)</summary>
     </key>
     <key type="b" name="extend-height">
-      <default>false</default>
+      <default>true</default>
       <summary>Extend the dock container to all the available height</summary>
     </key>
     <key type="i" name="preferred-monitor">
@@ -297,7 +297,7 @@
       <description>Set the action that is executed when shift+middle-clicking on the icon of a running application</description>
     </key>
     <key type="b" name="hot-keys">
-      <default>true</default>
+      <default>false</default>
       <summary>Super Hot-Keys</summary>
       <description>Launch and switch between dash items using Super+(0-9)</description>
     </key>
@@ -312,7 +312,7 @@
       <description>Behavior depends on hotkeys-show-dock and hotkeys-overlay.</description>
     </key>
     <key type="as" name="shortcut">
-      <default><![CDATA[['<Super>q']]]></default>
+      <default><![CDATA[['<Super>d']]]></default>
       <summary>Keybinding to show the dock and the number overlay.</summary>
       <description>Behavior depends on hotkeys-show-dock and hotkeys-overlay.</description>
     </key>
@@ -537,7 +537,7 @@
       </description>
     </key>
     <key name="force-straight-corner" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Force straight corners in dash</summary>
       <description>Make the borders in the dash non rounded</description>
     </key>
