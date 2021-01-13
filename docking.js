@@ -220,6 +220,7 @@ var DockedDash = GObject.registerClass({
         this._oldignoreHover = null;
         // This variables are linked to the settings regardles of autohide or intellihide
         // being temporary disable. Get set by _updateVisibilityMode;
+        this._manualhideIsEnabled = null;
         this._autohideIsEnabled = null;
         this._intellihideIsEnabled = null;
         this._fixedIsEnabled = null;
@@ -563,6 +564,10 @@ var DockedDash = GObject.registerClass({
             }
         ], [
             settings,
+            'changed::manualhide',
+            this._updateVisibilityMode.bind(this)
+        ], [
+            settings,
             'changed::intellihide',
             this._updateVisibilityMode.bind(this)
         ], [
@@ -617,7 +622,14 @@ var DockedDash = GObject.registerClass({
      */
     _updateVisibilityMode() {
         let settings = DockManager.settings;
-        if (settings.get_boolean('dock-fixed')) {
+
+        this._manualhideIsEnabled = settings.get_boolean('manualhide');
+        if (this._manualhideIsEnabled) {
+            this._fixedIsEnabled = false;
+            this._autohideIsEnabled = false;
+            this._intellihideIsEnabled = false;
+        }
+        else if (settings.get_boolean('dock-fixed')) {
             this._fixedIsEnabled = true;
             this._autohideIsEnabled = false;
             this._intellihideIsEnabled = false;
@@ -650,7 +662,11 @@ var DockedDash = GObject.registerClass({
 
         let settings = DockManager.settings;
 
-        if (this._fixedIsEnabled) {
+        if (this._manualhideIsEnabled) {
+            this._removeAnimations();
+            this._animateOut(settings.get_double('animation-time'), 0);
+        }
+        else if (this._fixedIsEnabled) {
             this._removeAnimations();
             this._animateIn(settings.get_double('animation-time'), 0);
         }
@@ -959,7 +975,7 @@ var DockedDash = GObject.registerClass({
 
         // In case the mouse move away from the dock area before hovering it, in such case the leave event
         // would never be triggered and the dock would stay visible forever.
-        this._triggerTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 250, () => { 
+        this._triggerTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 250, () => {
             if (!this._isPointerInZone()) {
                 this._hoverChanged();
                 return GLib.SOURCE_REMOVE;
