@@ -705,6 +705,39 @@ var MyDash = GObject.registerClass({
         // Apps supposed to be in the dash
         let newApps = [];
 
+        //TODO: settings
+        if (true) {
+            if (!this._show_launcher) {
+                this._show_launcher = new Locations.ShowLauncher();
+            }
+            newApps.push(this._show_launcher.getApp());
+        } else if (this._trash) {
+            this._show_launcher.destroy();
+            this._show_launcher = null;
+        }
+
+        //TODO: settings
+        if (true) {
+            if (!this._show_workspaces) {
+                this._show_workspaces = new Locations.ShowWorkspaces();
+            }
+            newApps.push(this._show_workspaces.getApp());
+        } else if (this._trash) {
+            this._show_workspaces.destroy();
+            this._show_workspaces = null;
+        }
+
+        //TODO: settings
+        if (true) {
+            if (!this._show_applications) {
+                this._show_applications = new Locations.ShowApplications();
+            }
+            newApps.push(this._show_applications.getApp());
+        } else if (this._trash) {
+            this._show_applications.destroy();
+            this._show_applications = null;
+        }
+
         if (settings.get_boolean('show-favorites')) {
             for (let id in favorites)
                 newApps.push(favorites[id]);

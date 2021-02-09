@@ -3,6 +3,7 @@
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Gtk = imports.gi.Gtk;
+const Main = imports.ui.main;
 const Shell = imports.gi.Shell;
 const Signals = imports.signals;
 
@@ -291,3 +292,90 @@ var Removables = class DashToDock_Removables {
     }
 }
 Signals.addSignalMethods(Removables.prototype);
+
+function cosmic_shell_app(name, icon, script) {
+    let exec = "dbus-send"
+        + " --session"
+        + " --type=method_call"
+        + " --dest=org.gnome.Shell"
+        + " /org/gnome/Shell"
+        + " org.gnome.Shell.Eval"
+        + " string:'" + script + "'";
+
+    let appKeys = new GLib.KeyFile();
+    appKeys.set_string('Desktop Entry', 'Name', name);
+    appKeys.set_string('Desktop Entry', 'Icon', icon);
+    appKeys.set_string('Desktop Entry', 'Type', 'Application');
+    appKeys.set_string('Desktop Entry', 'Exec', exec);
+    appKeys.set_string('Desktop Entry', 'StartupNotify', 'false');
+
+    let appInfo = Gio.DesktopAppInfo.new_from_keyfile(appKeys);
+    return new Shell.App({appInfo: appInfo});
+}
+
+var ShowLauncher = class DashToDock_ShowLauncher {
+    constructor() {
+        this._app = cosmic_shell_app(
+            __("Show Launcher"),
+            "pop-dock-show-launcher",
+            "let pop_shell = Main.extensionManager.lookup(\"pop-shell@system76.com\");" +
+            "if (pop_shell) {" +
+                "let ext = pop_shell.stateObj.ext;" +
+                "if (ext) {" +
+                    "if (ext.window_search.dialog.visible) {" +
+                        "ext.exit_modes();" +
+                    "} else {" +
+                        "ext.tiler.exit(ext);" +
+                        "ext.window_search.load_desktop_files();" +
+                        "ext.window_search.open(ext);" +
+                    "}" +
+                "}" +
+            "}"
+        );
+    }
+
+    getApp() {
+        return this._app;
+    }
+}
+Signals.addSignalMethods(ShowLauncher.prototype);
+
+var ShowWorkspaces = class DashToDock_ShowWorkspaces {
+    constructor() {
+        this._app = cosmic_shell_app(
+            __("Show Workspaces"),
+            "pop-dock-show-workspaces",
+            "if (Main.overview.visible) {" +
+                "Main.overview.hide();" +
+            "} else {" +
+                "Main.overview.viewSelector._showAppsButton.checked = false;" +
+                "Main.overview.show();" +
+            "}"
+        );
+    }
+
+    getApp() {
+        return this._app;
+    }
+}
+Signals.addSignalMethods(ShowWorkspaces.prototype);
+
+var ShowApplications = class DashToDock_ShowApplications {
+    constructor() {
+        this._app = cosmic_shell_app(
+            __("Show Applications"),
+            "pop-dock-show-applications",
+            "if (Main.overview.visible) {" +
+                "Main.overview.hide();" +
+            "} else {" +
+                "Main.overview.viewSelector._showAppsButton.checked = true;" +
+                "Main.overview.show();" +
+            "}"
+        );
+    }
+
+    getApp() {
+        return this._app;
+    }
+}
+Signals.addSignalMethods(ShowApplications.prototype);
