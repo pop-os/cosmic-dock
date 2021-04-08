@@ -180,6 +180,36 @@ var ThemeManager = class DashToDock_ThemeManager {
     _updateCustomStyleClasses() {
         let settings = Docking.DockManager.settings;
 
+        this._actor.add_style_class_name('cosmic-dock');
+
+        // Extended to screen edge style class
+        if (settings.get_boolean('extend-height'))
+            this._actor.add_style_class_name('extended');
+        else
+            this._actor.remove_style_class_name('extended');
+        
+        // Dock position: 1=Right, 2=Bottom, 3=Left, 0=Top(unused)
+        switch (settings.get_enum('dock-position')) {
+            case 1:
+                this._actor.remove_style_class_name('bottom');
+                this._actor.remove_style_class_name('left');
+                this._actor.add_style_class_name('side');
+                this._actor.add_style_class_name('right');
+                break;
+            case 2:
+                this._actor.add_style_class_name('bottom');
+                this._actor.remove_style_class_name('left');
+                this._actor.remove_style_class_name('side');
+                this._actor.remove_style_class_name('right');
+                break;
+            case 3:
+                this._actor.remove_style_class_name('bottom');
+                this._actor.add_style_class_name('left');
+                this._actor.add_style_class_name('side');
+                this._actor.remove_style_class_name('right');
+                break;
+        }
+
         if (settings.get_boolean('apply-custom-theme'))
             this._actor.add_style_class_name('dashtodock');
         else
