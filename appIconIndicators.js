@@ -218,7 +218,7 @@ var RunningIndicatorBase = class DashToDock_RunningIndicatorBase extends Indicat
         // Fallback
         if (colorPalette === null) {
             this._source._iconContainer.set_style(
-                'border-radius: 5px;' +
+                'border-radius: 11px;' +
                 'background-gradient-direction: vertical;' +
                 'background-gradient-start: #e0e0e0;' +
                 'background-gradient-end: darkgray;'
@@ -228,7 +228,7 @@ var RunningIndicatorBase = class DashToDock_RunningIndicatorBase extends Indicat
         }
 
         this._source._iconContainer.set_style(
-            'border-radius: 5px;' +
+            'border-radius: 11px;' +
             'background-gradient-direction: vertical;' +
             'background-gradient-start: ' + colorPalette.original + ';' +
             'background-gradient-end: ' +  colorPalette.darker + ';'

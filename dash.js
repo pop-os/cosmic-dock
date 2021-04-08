@@ -65,7 +65,7 @@ class DashToDock_MyDashActor extends St.Widget {
         });
 
         super._init({
-            name: 'dash',
+            name: 'dock',
             layout_manager: layout,
             clip_to_allocation: true,
             ...(this._isHorizontal ? {
