@@ -318,18 +318,9 @@ var ShowLauncher = class DashToDock_ShowLauncher {
         this._app = cosmic_shell_app(
             __("Show Launcher"),
             "pop-dock-show-launcher",
-            "let pop_shell = Main.extensionManager.lookup(\"pop-shell@system76.com\");" +
-            "if (pop_shell) {" +
-                "let ext = pop_shell.stateObj.ext;" +
-                "if (ext) {" +
-                    "if (ext.window_search.dialog.visible) {" +
-                        "ext.exit_modes();" +
-                    "} else {" +
-                        "ext.tiler.exit(ext);" +
-                        "ext.window_search.load_desktop_files();" +
-                        "ext.window_search.open(ext);" +
-                    "}" +
-                "}" +
+            "let pop_cosmic = Main.extensionManager.lookup(\"pop-cosmic@system76.com\");" +
+            "if (pop_cosmic) {" +
+                "pop_cosmic.stateObj.overview_toggle(pop_cosmic.stateObj.OVERVIEW_LAUNCHER);" +
             "}"
         );
     }
@@ -345,11 +336,9 @@ var ShowWorkspaces = class DashToDock_ShowWorkspaces {
         this._app = cosmic_shell_app(
             __("Show Workspaces"),
             "pop-dock-show-workspaces",
-            "if (Main.overview.visible) {" +
-                "Main.overview.hide();" +
-            "} else {" +
-                "Main.overview.viewSelector._showAppsButton.checked = false;" +
-                "Main.overview.show();" +
+            "let pop_cosmic = Main.extensionManager.lookup(\"pop-cosmic@system76.com\");" +
+            "if (pop_cosmic) {" +
+                "pop_cosmic.stateObj.overview_toggle(pop_cosmic.stateObj.OVERVIEW_WORKSPACES);" +
             "}"
         );
     }
@@ -365,11 +354,9 @@ var ShowApplications = class DashToDock_ShowApplications {
         this._app = cosmic_shell_app(
             __("Show Applications"),
             "pop-dock-show-applications",
-            "if (Main.overview.visible) {" +
-                "Main.overview.hide();" +
-            "} else {" +
-                "Main.overview.viewSelector._showAppsButton.checked = true;" +
-                "Main.overview.show();" +
+            "let pop_cosmic = Main.extensionManager.lookup(\"pop-cosmic@system76.com\");" +
+            "if (pop_cosmic) {" +
+                "pop_cosmic.stateObj.overview_toggle(pop_cosmic.stateObj.OVERVIEW_APPLICATIONS);" +
             "}"
         );
     }
