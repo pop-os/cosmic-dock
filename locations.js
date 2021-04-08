@@ -310,7 +310,9 @@ function cosmic_shell_app(name, icon, script) {
     appKeys.set_string('Desktop Entry', 'StartupNotify', 'false');
 
     let appInfo = Gio.DesktopAppInfo.new_from_keyfile(appKeys);
-    return new Shell.App({appInfo: appInfo});
+    let app = new Shell.App({appInfo: appInfo});
+    app.cosmic_shell_app = true;
+    return app;
 }
 
 var ShowLauncher = class DashToDock_ShowLauncher {

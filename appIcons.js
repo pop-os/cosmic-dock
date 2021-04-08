@@ -518,6 +518,11 @@ class MyAppIcon extends Dash.DashIcon {
             this.launchNewWindow();
         }
 
+        if (this.app.cosmic_shell_app) {
+            // Do not hide overview when launching COSMIC shell app
+            shouldHideOverview = false;
+        }
+
         // Hide overview except when action mode requires it
         if(shouldHideOverview) {
             Main.overview.hide();
@@ -565,6 +570,9 @@ class MyAppIcon extends Dash.DashIcon {
         let appInfo = this.app.get_app_info();
         let actions = appInfo.list_actions();
         if (this.app.can_open_new_window()) {
+            if (this.app.cosmic_shell_app) {
+                // Do not animate launch if launching COSMIC shell app
+            } else
             this.animateLaunch();
             // This is used as a workaround for a bug resulting in no new windows being opened
             // for certain running applications when calling open_new_window().
