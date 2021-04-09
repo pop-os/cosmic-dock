@@ -24,8 +24,8 @@
 
 #dashtodockContainer.shrink .dash-item-container > StButton,
 #dashtodockContainer.dashtodock .dash-item-container > StButton {
-   padding: 0;
-   border-radius: 11px;
+    padding: 0;
+    border-radius: 11px;
 }
 
 #dashtodockContainer.running-dots .dash-item ,
@@ -162,4 +162,8 @@
     background-image: url('./media/highlight_stacked_bg_h.svg');
     background-position: 0px 0px;
     background-size: contain;
+}
+
+.dock-icon {
+    padding: 8px;
 }
