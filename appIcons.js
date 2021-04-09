@@ -84,6 +84,7 @@ class MyAppIcon extends Dash.DashIcon {
         this.remoteModel = remoteModel;
         this.iconAnimator = iconAnimator;
         this._indicator = null;
+        this.icon.add_style_class_name('dock-icon');
 
         let appInfo = app.get_app_info();
         this._location = appInfo ? appInfo.get_string('XdtdUri') : null;
