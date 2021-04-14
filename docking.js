@@ -701,9 +701,7 @@ var DockedDash = GObject.registerClass({
         this._ignoreHover = true;
         this._intellihide.disable();
         this._removeAnimations();
-        if (! this._manualhideIsEnabled) {
-            this._animateIn(DockManager.settings.get_double('animation-time'), 0);
-        }
+        this._animateIn(DockManager.settings.get_double('animation-time'), 0);
     }
 
     _onOverviewHiding() {
@@ -763,6 +761,10 @@ var DockedDash = GObject.registerClass({
     }
 
     _animateIn(time, delay) {
+        if (this._manualhideIsEnabled) {
+            return;
+        }
+
         this._dockState = State.SHOWING;
         this.dash.iconAnimator.start();
 
