@@ -31,7 +31,7 @@ A Shell reload is required `Alt+F2` `r` `Enter` and the extension has to be enab
 If the extension is installed from source, it may be necessary to remove the manually-installed copy. The extension can be removed using this command:
 
 ```
-rm -r ~/.local/share/gnome-shell/extensions/ubuntu-dock@ubuntu.com
+rm -r ~/.local/share/gnome-shell/extensions/cosmic-dock@system76.com
 ```
 
 ## Bugs
