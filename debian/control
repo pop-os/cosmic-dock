@@ -1,24 +1,27 @@
-Source: gnome-shell-extension-ubuntu-dock
+Source: gnome-shell-extension-cosmic-dock
 Section: gnome
 Priority: optional
-Maintainer: Didier Roche <didrocks@ubuntu.com>
+Maintainer: System76 <info@system76.com>
 Build-Depends: debhelper (>= 10),
                dh-translations,
                libglib2.0-bin,
 Standards-Version: 4.1.1
-Vcs-Git: https://github.com/micheleg/dash-to-dock.git -b ubuntu-dock
-Vcs-Browser: https://github.com/micheleg/dash-to-dock/tree/ubuntu-dock
-Homepage: https://github.com/micheleg/dash-to-dock/blob/ubuntu-dock/README.md
+Vcs-Git: https://github.com/pop-os/gnome-shell-extension-cosmic-dock.git
+Vcs-Browser: https://github.com/pop-os/gnome-shell-extension-cosmic-dock
+Homepage: https://github.com/pop-os/gnome-shell-extension-cosmic-dock
 
-Package: gnome-shell-extension-ubuntu-dock
+Package: gnome-shell-extension-cosmic-dock
 Architecture: all
 Depends: gnome-shell (<< 3.39),
          gnome-shell (>= 3.35.90),
          ${misc:Depends},
          ${shlibs:Depends}
 Replaces: gnome-shell-extension-dashtodock,
-Description: Ubuntu Dock for GNOME Shell
- A dock for the Gnome Shell, default Ubuntu experience.
+          gnome-shell-extension-ubuntu-dock,
+Breaks: gnome-shell-extension-dashtodock,
+        gnome-shell-extension-ubuntu-dock,
+Description: Cosmic Dock for GNOME Shell
+ A dock for the Gnome Shell, default Pop!_OS experience.
  .
  This extension is a modified version of Dash To Dock with different defaults.
  Dash To Dock can be installed to replace it and give more (but unsupported)
