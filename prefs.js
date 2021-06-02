@@ -12,14 +12,20 @@ function init() {
 }
 
 function buildPrefsWidget() {
-    const label = new Gtk.Label({label: "Cosmic is configured through Settings."});
+    const label = new Gtk.Label({
+        label: "Configuration for the dock, the top bar, the workspaces overview, and\nother COSMIC components is available in the Settings application.",
+	justify: Gtk.Justification.CENTER,
+    });
 
-    const button = new Gtk.Button({label: "Open in Settings"});
+    const button = new Gtk.Button({
+        label: "Configure in Settings",
+        halign: Gtk.Align.CENTER,
+    });
     button.connect("clicked", open_panel);
 
     const box = new Gtk.Box({
         orientation: Gtk.Orientation.VERTICAL,
-        spacing: 6,
+        spacing: 18,
         halign: Gtk.Align.CENTER,
         valign: Gtk.Align.CENTER,
     });
