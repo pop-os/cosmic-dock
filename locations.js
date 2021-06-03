@@ -3,7 +3,6 @@
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Gtk = imports.gi.Gtk;
-const Main = imports.ui.main;
 const Shell = imports.gi.Shell;
 const Signals = imports.signals;
 
@@ -292,79 +291,3 @@ var Removables = class DashToDock_Removables {
     }
 }
 Signals.addSignalMethods(Removables.prototype);
-
-function cosmic_shell_app(name, icon, script) {
-    let exec = "dbus-send"
-        + " --session"
-        + " --type=method_call"
-        + " --dest=org.gnome.Shell"
-        + " /org/gnome/Shell"
-        + " org.gnome.Shell.Eval"
-        + " string:'" + script + "'";
-
-    let appKeys = new GLib.KeyFile();
-    appKeys.set_string('Desktop Entry', 'Name', name);
-    appKeys.set_string('Desktop Entry', 'Icon', icon);
-    appKeys.set_string('Desktop Entry', 'Type', 'Application');
-    appKeys.set_string('Desktop Entry', 'Exec', exec);
-    appKeys.set_string('Desktop Entry', 'StartupNotify', 'false');
-
-    let appInfo = Gio.DesktopAppInfo.new_from_keyfile(appKeys);
-    let app = new Shell.App({appInfo: appInfo});
-    app.cosmic_shell_app = true;
-    return app;
-}
-
-var ShowLauncher = class DashToDock_ShowLauncher {
-    constructor() {
-        this._app = cosmic_shell_app(
-            __("Show Launcher"),
-            "pop-dock-show-launcher",
-            "let pop_cosmic = Main.extensionManager.lookup(\"pop-cosmic@system76.com\");" +
-            "if (pop_cosmic) {" +
-                "pop_cosmic.stateObj.overview_toggle(pop_cosmic.stateObj.OVERVIEW_LAUNCHER);" +
-            "}"
-        );
-    }
-
-    getApp() {
-        return this._app;
-    }
-}
-Signals.addSignalMethods(ShowLauncher.prototype);
-
-var ShowWorkspaces = class DashToDock_ShowWorkspaces {
-    constructor() {
-        this._app = cosmic_shell_app(
-            __("Show Workspaces"),
-            "pop-dock-show-workspaces",
-            "let pop_cosmic = Main.extensionManager.lookup(\"pop-cosmic@system76.com\");" +
-            "if (pop_cosmic) {" +
-                "pop_cosmic.stateObj.overview_toggle(pop_cosmic.stateObj.OVERVIEW_WORKSPACES);" +
-            "}"
-        );
-    }
-
-    getApp() {
-        return this._app;
-    }
-}
-Signals.addSignalMethods(ShowWorkspaces.prototype);
-
-var ShowApplications = class DashToDock_ShowApplications {
-    constructor() {
-        this._app = cosmic_shell_app(
-            __("Show Applications"),
-            "pop-dock-show-applications",
-            "let pop_cosmic = Main.extensionManager.lookup(\"pop-cosmic@system76.com\");" +
-            "if (pop_cosmic) {" +
-                "pop_cosmic.stateObj.overview_toggle(pop_cosmic.stateObj.OVERVIEW_APPLICATIONS);" +
-            "}"
-        );
-    }
-
-    getApp() {
-        return this._app;
-    }
-}
-Signals.addSignalMethods(ShowApplications.prototype);
