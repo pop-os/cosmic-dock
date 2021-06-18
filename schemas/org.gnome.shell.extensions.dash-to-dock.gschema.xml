@@ -121,7 +121,7 @@
       <description>Enable or disable intellihide mode</description>
     </key>
     <key name="intellihide-mode" enum="org.gnome.shell.extensions.dash-to-dock.intellihide-mode">
-      <default>'FOCUS_APPLICATION_WINDOWS'</default>
+      <default>'ALL_WINDOWS'</default>
       <summary>Define which windows are considered for intellihide.</summary>
       <description></description>
     </key>
