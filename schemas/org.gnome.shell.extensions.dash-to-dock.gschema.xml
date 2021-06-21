@@ -226,7 +226,7 @@
       <description>Show or hide the trash can icon in the dash</description>
     </key>
     <key type="b" name="show-mounts">
-      <default>false</default>
+      <default>true</default>
       <summary>Show mounted volumes and devices</summary>
       <description>Show or hide mounted volume and device icons in the dash</description>
     </key>
