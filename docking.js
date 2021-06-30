@@ -708,7 +708,15 @@ var DockedDash = GObject.registerClass({
         this._ignoreHover = true;
         this._intellihide.disable();
         this._removeAnimations();
-        this._animateIn(DockManager.settings.get_double('animation-time'), 0);
+
+        let activePage = Main.overview.viewSelector.getActivePage();
+        let dashVisible = (activePage == ViewSelector.ViewPage.WINDOWS ||
+                           (activePage == ViewSelector.ViewPage.APPS && this._isPrimaryMonitor()));
+
+        if (dashVisible)
+            this._animateIn(DockManager.settings.get_double('animation-time'), 0);
+        else
+            this._animateOut(DockManager.settings.get_double('animation-time'), 0);
     }
 
     _onOverviewHiding() {
@@ -1210,7 +1218,7 @@ var DockedDash = GObject.registerClass({
     _pageChanged() {
         let activePage = Main.overview.viewSelector.getActivePage();
         let dashVisible = (activePage == ViewSelector.ViewPage.WINDOWS ||
-                           activePage == ViewSelector.ViewPage.APPS);
+                           (activePage == ViewSelector.ViewPage.APPS && this._isPrimaryMonitor()));
 
         if (dashVisible)
             this._animateIn(DockManager.settings.get_double('animation-time'), 0);
