@@ -404,8 +404,9 @@ var DockAbstractAppIcon = GObject.registerClass({
                     const { dockFixed: fixedDock } = Docking.DockManager.settings;
                     let additional_margin = this._isHorizontal && !fixedDock ? Main.overview.dash.height : 0;
                     let verticalMargins = this._menu.actor.margin_top + this._menu.actor.margin_bottom;
+                    let scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
                     // Also set a max width to the menu, so long labels (long windows title) get truncated
-                    this._menu.actor.style = ('max-height: ' + Math.round(workArea.height - additional_margin - verticalMargins) + 'px;' +
+                    this._menu.actor.style = ('max-height: ' + parseInt((workArea.height - additional_margin - verticalMargins)/scale,10) + 'px;' +
                                               'max-width: 400px');
                 }
             });
