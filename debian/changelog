@@ -1,3 +1,9 @@
+gnome-shell-extension-cosmic-dock (70~ubuntu1pop0) impish; urgency=medium
+
+  * Pop!_OS patches
+
+ -- Jeremy Soller <jeremy@system76.com>  Wed, 04 Aug 2021 13:54:52 -0600
+
 gnome-shell-extension-ubuntu-dock (70~ubuntu1) impish; urgency=medium
 
   [ Philipp Kitzberger ]

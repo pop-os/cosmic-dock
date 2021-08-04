@@ -10,4 +10,4 @@ _build
 debian/*debhelper*
 debian/files
 debian/*.substvars
-debian/gnome-shell-extension-ubuntu-dock/
+debian/gnome-shell-extension-cosmic-dock/
