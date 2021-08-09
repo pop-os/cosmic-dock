@@ -172,7 +172,7 @@ var DockDash = GObject.registerClass({
             this._itemMenuStateChanged(this._showAppsIcon, opened);
         });
 
-        this._dashContainer.add_child(this._showAppsIcon);
+        //this._dashContainer.add_child(this._showAppsIcon);
 
         this._background = new St.Widget({
             style_class: 'dash-background',
