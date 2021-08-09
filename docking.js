@@ -230,6 +230,7 @@ var DockedDash = GObject.registerClass({
         this._oldignoreHover = null;
         // This variables are linked to the settings regardles of autohide or intellihide
         // being temporary disable. Get set by _updateVisibilityMode;
+        this._manualhideIsEnabled = null;
         this._autohideIsEnabled = null;
         this._intellihideIsEnabled = null;
 
@@ -576,6 +577,10 @@ var DockedDash = GObject.registerClass({
             () => { this._intellihide.forceUpdate(); }
         ], [
             settings,
+            'changed::manualhide',
+            this._updateVisibilityMode.bind(this)
+        ], [
+            settings,
             'changed::autohide',
             () => {
                     this._updateVisibilityMode();
@@ -622,7 +627,8 @@ var DockedDash = GObject.registerClass({
      */
     _updateVisibilityMode() {
         let settings = DockManager.settings;
-        if (DockManager.settings.dockFixed) {
+        this._manualhideIsEnabled = settings.get_boolean('manualhide');
+        if (this._manualhideIsEnabled || DockManager.settings.dockFixed) {
             this._autohideIsEnabled = false;
             this._intellihideIsEnabled = false;
         }
@@ -658,7 +664,11 @@ var DockedDash = GObject.registerClass({
 
         let settings = DockManager.settings;
 
-        if (DockManager.settings.dockFixed) {
+        if (this._manualhideIsEnabled) {
+            this._removeAnimations();
+            this._animateOut(settings.get_double('animation-time'), 0);
+        }
+        else if (DockManager.settings.dockFixed) {
             this._removeAnimations();
             this._animateIn(settings.get_double('animation-time'), 0);
         }
@@ -757,6 +767,10 @@ var DockedDash = GObject.registerClass({
     }
 
     _animateIn(time, delay) {
+        if (this._manualhideIsEnabled) {
+            return;
+        }
+
         this._dockState = State.SHOWING;
         this.dash.iconAnimator.start();
         this._delayedHide = false;
