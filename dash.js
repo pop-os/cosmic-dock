@@ -137,9 +137,9 @@ var DockDash = GObject.registerClass({
 
         if (Docking.DockManager.settings.dockExtended) {
             if (!this._isHorizontal) {
-                this._scrollView.y_align = Clutter.ActorAlign.START;
+                this._scrollView.y_align = Clutter.ActorAlign.CENTER;
             } else {
-                this._scrollView.x_align = Clutter.ActorAlign.START;
+                this._scrollView.x_align = Clutter.ActorAlign.CENTER;
             }
         }
 
