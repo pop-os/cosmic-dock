@@ -1920,8 +1920,12 @@ var DockManager = class DashToDock_DockManager {
 
         // Pretend I'm the dash: meant to make appgrid swarm animation come from
         // the right position of the appShowButton.
+        let oldShowAppsButton = this.searchController._showAppsButton;
         this.overviewControls.dash = this.mainDock.dash;
         this.searchController._showAppsButton = this.mainDock.dash.showAppsButton;
+        this.mainDock.dash.showAppsButton.bind_property("checked",
+            oldShowAppsButton, "checked",
+            GObject.BindingFlags.BIDIRECTIONAL);
 
         // We also need to ignore max-size changes
         this._methodInjections.addWithLabel('main-dash', this._oldDash,
