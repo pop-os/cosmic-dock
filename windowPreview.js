@@ -36,6 +36,8 @@ var WindowPreviewMenu = class DashToDock_WindowPreviewMenu extends PopupMenu.Pop
         let monitorIndex = this._source.monitorIndex;
 
         this.actor.add_style_class_name('app-well-menu');
+        this.actor.add_style_class_name('app-preview-menu');
+        this.actor.set_name('dashtodockWindowPreviewMenu');
         this.actor.set_style('max-width: '  + (Main.layoutManager.monitors[monitorIndex].width  - 22) + 'px; ' +
                              'max-height: ' + (Main.layoutManager.monitors[monitorIndex].height - 22) + 'px;');
         this.actor.hide();
@@ -325,10 +327,11 @@ class DashToDock_WindowPreviewMenuItem extends PopupMenu.PopupBaseMenuItem {
         // We don't want this: it adds spacing on the left of the item.
         this.remove_child(this._ornamentLabel);
         this.add_style_class_name('dashtodock-app-well-preview-menu-item');
-
+        
         // Now we don't have to set PREVIEW_MAX_WIDTH and PREVIEW_MAX_HEIGHT as preview size - that made all kinds of windows either stretched or squished (aspect ratio problem)
         this._cloneBin = new St.Bin();
         this._cloneBin.set_size(this._width*this._scale, this._height*this._scale);
+        this.set_name('dashtodockWindowPreview');
 
         // TODO: improve the way the closebutton is layout. Just use some padding
         // for the moment.
