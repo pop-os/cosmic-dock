@@ -36,7 +36,6 @@ var WindowPreviewMenu = class DashToDock_WindowPreviewMenu extends PopupMenu.Pop
         let monitorIndex = this._source.monitorIndex;
 
         this.actor.add_style_class_name('app-well-menu');
-        this.actor.add_style_class_name('app-preview-menu');
         this.actor.set_name('dashtodockWindowPreviewMenu');
         this.actor.set_style('max-width: '  + (Main.layoutManager.monitors[monitorIndex].width  - 22) + 'px; ' +
                              'max-height: ' + (Main.layoutManager.monitors[monitorIndex].height - 22) + 'px;');
