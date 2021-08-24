@@ -313,3 +313,23 @@ $osd_fg_color: #eeeeec;
     background-position: 0px 0px;
     background-size: contain;
 }
+
+/* Window Previews popup */
+
+#dashtodockWindowPreviewMenu {
+    -arrow-border-radius: 12px;
+}
+
+#dashtodockWindowList {
+    padding: 0 12px;
+}
+
+#dashtodockWindowList #dashtodockWindowPreview {
+    border-radius: 12px;
+}
+
+#dashtodockWindowPreviewMenu .window-close {
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+}
