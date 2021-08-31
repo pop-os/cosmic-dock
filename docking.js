@@ -2018,6 +2018,7 @@ var DockManager = class DashToDock_DockManager {
             return box;
         }
 
+        if (false) // Disabled for compatibility with vertical-overview
         this._vfuncInjections.addWithLabel('main-dash', ControlsManagerLayout.prototype,
             'allocate', function (container) {
                 const oldPostAllocation = this._runPostAllocation;
