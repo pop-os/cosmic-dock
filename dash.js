@@ -151,7 +151,7 @@ var DockDash = GObject.registerClass({
             vertical: !this._isHorizontal,
             clip_to_allocation: false,
             ...(!this._isHorizontal ? { layout_manager: new DockDashIconsVerticalLayout() } : {}),
-            x_align: rtl ? Clutter.ActorAlign.END : Clutter.ActorAlign.START,
+            x_align: Clutter.ActorAlign.CENTER,
             y_align: this._isHorizontal ? Clutter.ActorAlign.CENTER: Clutter.ActorAlign.START,
             y_expand: !this._isHorizontal,
             x_expand: this._isHorizontal
