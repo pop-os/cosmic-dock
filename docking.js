@@ -2200,6 +2200,9 @@ var DockManager = class DashToDock_DockManager {
         const { checked } = button;
         const { overviewControls } = this;
 
+        if (this.mainDock === null)
+            return;
+
         if (!Main.overview.visible) {
             this.mainDock.dash.showAppsButton._fromDesktop = true;
             if (this._settings.get_boolean('animate-show-apps')) {
