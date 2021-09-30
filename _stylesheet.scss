@@ -67,7 +67,9 @@ $osd_fg_color: #eeeeec;
             }
 
             #dashtodockContainer {
-                margin: 0;
+                margin: 50%;
+                margin-#{$side}: 0;
+                margin-#{opposite($side)}: 0;
                 padding: 0;
                 spacing: 0;
             }
