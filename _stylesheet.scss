@@ -40,9 +40,7 @@ $osd_fg_color: #eeeeec;
 
 @each $side in bottom, top, left, right {
     #dashtodockContainer.#{$side},
-    #dashtodockContainer.shrink.#{$side},
-    #dashtodockContainer.fixed.#{$side},
-    #dashtodockContainer.shrink.fixed.#{$side} {
+    #dashtodockContainer.shrink.#{$side} {
         margin: 0;
         padding: 0;
         
@@ -85,6 +83,17 @@ $osd_fg_color: #eeeeec;
                     padding-#{opposite($side)}: 0px;
                 }
             }
+        }
+    }
+}
+
+@each $side in bottom, top, left, right {
+    #dashtodockContainer.extended.#{$side},
+    #dashtodockContainer.extended.shrink.#{$side} {
+        #dash .dash-background {
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
         }
     }
 }
