@@ -118,6 +118,7 @@ var DockDash = GObject.registerClass({
         });
 
         this._dashContainer = new St.BoxLayout({
+            style_class: 'dash-main',
             name: "dashtodockDashContainer",
             x_align: Clutter.ActorAlign.CENTER,
             y_align: Clutter.ActorAlign.CENTER,
@@ -148,6 +149,7 @@ var DockDash = GObject.registerClass({
 
         let rtl = Clutter.get_default_text_direction() == Clutter.TextDirection.RTL;
         this._box = new St.BoxLayout({
+            style_class: 'dash-test',
             vertical: !this._isHorizontal,
             clip_to_allocation: false,
             ...(!this._isHorizontal ? { layout_manager: new DockDashIconsVerticalLayout() } : {}),
