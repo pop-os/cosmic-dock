@@ -76,6 +76,7 @@ $osd_fg_color: #eeeeec;
 
             .dash-item-container {
                 margin: 0;
+                margin-#{opposite($side)}: $dock_side_margin;
 
                 .app-well-app,
                 .show-apps {
