@@ -116,3 +116,19 @@ $osd_fg_color: #eeeeec;
     background-color: rgba(238, 238, 236, 0.2);
     border-radius: $modal_radius + 1px;
 }
+
+#dashtodockContainer .number-overlay {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(black, 0.8);
+    text-align: center;
+}
+
+#dashtodockContainer .notification-badge {
+    color: rgba(black, 1);
+    background-color: rgba(#E56A54, 1);
+    padding: 0.2em 0.5em;
+    border-radius: 1em;
+    font-weight: bold;
+    text-align: center;
+    margin: 2px;
+}
