@@ -6,9 +6,14 @@ EXTRA_MODULES = dash.js docking.js appIcons.js appIconIndicators.js fileManager1
 EXTRA_MEDIA = logo.svg glossy.svg highlight_stacked_bg.svg highlight_stacked_bg_h.svg
 TOLOCALIZE =  prefs.js appIcons.js locations.js
 MSGSRC = $(wildcard po/*.po)
+
+ifeq ($(XDG_DATA_HOME),)
+	XDG_DATA_HOME = $(HOME)/.local/share
+endif
+
 ifeq ($(strip $(DESTDIR)),)
 	INSTALLTYPE = local
-	INSTALLBASE = $(HOME)/.local/share/gnome-shell/extensions
+	INSTALLBASE = $(XDG_DATA_HOME)/gnome-shell/extensions
 else
 	INSTALLTYPE = system
 	SHARE_PREFIX = $(DESTDIR)/usr/share
