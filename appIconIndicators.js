@@ -394,7 +394,7 @@ var RunningIndicatorDots = class DashToDock_RunningIndicatorDots extends Running
 
     _drawIndicator(cr) {
         // Draw the required numbers of dots
-        let n = this._source.windowsCount;
+        let n = Math.min(4, this._source.windowsCount);
 
         cr.setLineWidth(this._borderWidth);
         Clutter.cairo_set_source_color(cr, this._borderColor);
