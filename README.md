@@ -7,16 +7,16 @@ This extension adds a configurable dock to the system and allows it to be placed
 This extension is part of [COSMIC](https://github.com/pop-os/cosmic), the Computer Operating System Main Interface Components.
 
 ## Installation
-Installation is recommended from the package manager within Pop_OS. It should be pre-installed as part of COSMIC on Pop_OS 21.04 and later, but in case it isn't it can be installed using the following commands:
+Installation is recommended from the package manager within Pop!_OS. It should be pre-installed as part of COSMIC on Pop!_OS 21.04 and later, but in case it isn't it can be installed using the following command:
 
 ```
-sudo apt install gnome-shell-extension-ubuntu-dock
+sudo apt install gnome-shell-extension-cosmic-dock
 ```
 
 ### From source code
 The extension can be installed directly from source, either for the convenience of using git or to test the latest development version. Clone the desired branch with git
 
-<pre>git clone https://github.com/pop-os/gnome-shell-extension-ubuntu-dock</pre>
+<pre>git clone https://github.com/pop-os/cosmic-dock</pre>
 or download the branch from github. A simple Makefile is included. Then run
 
 ```
@@ -35,7 +35,7 @@ rm -r ~/.local/share/gnome-shell/extensions/cosmic-dock@system76.com
 ```
 
 ## Bugs
- Please report bugs in the Github issue tracker: https://github.com/pop-os/gnome-shell-extension-ubuntu-dock/issues
+ Please report bugs in the Github issue tracker: https://github.com/pop-os/cosmic-dock/issues
 
 ## License
 COSMIC Dock is distributed under the terms of the GNU General Public License,
