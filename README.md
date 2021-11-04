@@ -14,6 +14,9 @@ sudo apt install gnome-shell-extension-ubuntu-dock
 ```
 
 ### From source code
+You'll need the following dependencies:
+ - gettext
+
 The extension can be installed directly from source, either for the convenience of using git or to test the latest development version. Clone the desired branch with git
 
 <pre>git clone https://github.com/pop-os/gnome-shell-extension-ubuntu-dock</pre>
