@@ -6,7 +6,7 @@
 "name": "Cosmic Dock",
 "description": "A dock for the Gnome Shell, default Pop!_OS experience. This extension is a modified version of Dash To Dock with different defaults. Dash To Dock can be installed to replace it and give more (but unsupported) configuration options.",
 "original-author": "micxgx@gmail.com",
-"url": "https://micheleg.github.io/dash-to-dock/",
+"url": "https://github.com/pop-os/cosmic-dock",
 "gettext-domain": "dashtodock",
 "version": 69
 }
