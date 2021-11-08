@@ -2061,30 +2061,6 @@ var DockManager = class DashToDock_DockManager {
                 this._runPostAllocation();
             });
 
-        // This can be removed or bypassed when GNOME/gnome-shell!1892 will be merged
-        function workspaceBoxOriginFixer(originalFunction, state, workAreaBox, ...args) {
-            const workspaceBox = originalFunction.call(this, state, workAreaBox, ...args);
-            workspaceBox.set_origin(workAreaBox.x1, workspaceBox.y1);
-            return workspaceBox;
-        };
-
-        this._methodInjections.addWithLabel('main-dash', [
-            ControlsManagerLayout.prototype,
-            '_computeWorkspacesBoxForState',
-            function (originalFunction, state, ...args) {
-                const box = workspaceBoxOriginFixer.call(this, originalFunction, state, ...args);
-                if (state !== OverviewControls.ControlsState.HIDDEN)
-                    maybeAdjustBoxToDock(box);
-                return box;
-            }
-        ], [
-            ControlsManagerLayout.prototype,
-            '_getAppDisplayBoxForState',
-            function (...args) {
-                return maybeAdjustBoxToDock(workspaceBoxOriginFixer.call(this, ...args));
-            }
-        ]);
-
         this._vfuncInjections.addWithLabel('main-dash', Workspace.WorkspaceBackground.prototype,
             'allocate', function (box) {
             this.vfunc_allocate(box);
