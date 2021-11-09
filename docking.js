@@ -651,6 +651,11 @@ var DockedDash = GObject.registerClass({
         else
             this._intellihide.disable();
 
+        if (this._manualhideIsEnabled)
+            this._dashSpacer.setDashActor(null);
+        else
+            this._dashSpacer.setDashActor(this._box);
+
         this._updateDashVisibility();
     }
 
