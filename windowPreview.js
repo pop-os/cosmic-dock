@@ -39,8 +39,8 @@ var WindowPreviewMenu = class DashToDock_WindowPreviewMenu extends PopupMenu.Pop
     
         this.actor.add_style_class_name('app-well-menu');
         this.actor.set_name('dashtodockWindowPreviewMenu');
-        this.actor.set_style('max-width: '  + parseInt((Main.layoutManager.monitors[monitorIndex].width  - 2)/scale,10) + 'px; ' +
-                             'max-height: ' + parseInt((Main.layoutManager.monitors[monitorIndex].height - 2)/scale,10) + 'px;');
+        this.actor.set_style('max-width: '  + (parseInt((Main.layoutManager.monitors[monitorIndex].width)/scale,10)-22) + 'px; ' +
+                             'max-height: ' + (parseInt((Main.layoutManager.monitors[monitorIndex].height)/scale,10)-22) + 'px;');
         this.actor.hide();
 
         // Chain our visibility and lifecycle to that of the source
