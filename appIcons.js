@@ -469,7 +469,7 @@ var DockAbstractAppIcon = GObject.registerClass({
         // We customize the action only when the application is already running
         if (this.running) {
             const hasUrgentWindows = !!this._urgentWindows.size;
-            const singleOrUrgentWindows = windows.length === 1 || !hasUrgentWindows;
+            const singleOrUrgentWindows = windows.length === 1 || hasUrgentWindows;
             switch (buttonAction) {
             case clickAction.MINIMIZE:
                 // In overview just activate the app, unless the acion is explicitely
