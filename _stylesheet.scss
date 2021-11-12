@@ -177,3 +177,34 @@ $osd_fg_color: #eeeeec;
     text-align: center;
     margin: 2px;
 }
+
+/* Window Previews popup */
+
+#dashtodockWindowPreviewMenu {
+    -arrow-border-radius: 12px;
+}
+
+#dashtodockWindowList {
+    padding: 0 12px;
+}
+
+#dashtodockWindowList #dashtodockWindowPreview {
+    border-radius: 12px;
+}
+
+#dashtodockWindowPreviewMenu .window-close {
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+}
+
+#dashtodockPreviewSeparator.popup-separator-menu-item-horizontal {
+    width: 1px;
+    height: auto;
+    border-right-width: 1px;
+    margin: 32px 0px;
+}
+
+.dashtodock-app-well-preview-menu-item {
+    padding: 1em 1em 0.5em 1em;
+}
