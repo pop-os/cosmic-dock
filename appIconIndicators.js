@@ -63,7 +63,7 @@ var AppIconIndicator = class DashToDock_AppIconIndicator {
                 break;
 
             case RunningIndicatorStyle.DOTS:
-                runningIndicator = new RunningIndicatorDots(source);
+                runningIndicator = new RunningIndicatorBinary(source);
                 break;
 
             case RunningIndicatorStyle.SQUARES:
@@ -635,13 +635,13 @@ var RunningIndicatorBinary = class DashToDock_RunningIndicatorBinary extends Run
 
         if (this._source.running) {
             let size =  Math.max(this._width/11, this._borderWidth);
+            let padding = this._borderWidth;
             let spacing = Math.ceil(this._width/18); // separation between the dots
+            let yOffset = this._height - padding - size;
             let binaryValue = String("0000" + (n >>> 0).toString(2)).slice(-4);
 
             cr.setLineWidth(this._borderWidth);
             Clutter.cairo_set_source_color(cr, this._borderColor);
-            // TODO: Functionality is good. I just need to figure out how to make the option show
-            // in the dconf-editor :/
             cr.translate(Math.floor((this._width - 4*size - (4-1)*spacing)/2), yOffset);
             for (let i = 0; i < binaryValue.length; i++) {
                 if (binaryValue[i] == "1") {
