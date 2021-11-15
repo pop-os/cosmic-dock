@@ -636,21 +636,22 @@ var RunningIndicatorBinary = class DashToDock_RunningIndicatorBinary extends Run
         if (this._source.running) {
             let size =  Math.max(this._width/11, this._borderWidth);
             let padding = this._borderWidth;
-            let spacing = 0; // separation between the dots
+            let spacing = Math.ceil(this._width/18); // separation between the dots
             let yOffset = this._height - padding - size;
             let binaryValue = String("0000" + (n >>> 0).toString(2)).slice(-4);
 
             cr.setLineWidth(this._borderWidth);
             Clutter.cairo_set_source_color(cr, this._borderColor);
-
+            // TODO: Functionality is good. I just need to figure out how to make the option show
+            // in the dconf-editor :/
             cr.translate(Math.floor((this._width - 4*size - (4-1)*spacing)/2), yOffset);
             for (let i = 0; i < binaryValue.length; i++) {
                 if (binaryValue[i] == "1") {
                     cr.newSubPath();
-                    cr.rectangle(i*size + i*spacing, 0, size, size);
+                    cr.arc((2*i+1)*this._radius + i*spacing, -this._radius - this._borderWidth/2, this._radius, 0, 2*Math.PI);
                 } else {
                     cr.newSubPath();
-                    cr.rectangle(i*size + i*spacing, 2*(size/5), size, size/5);
+                    cr.rectangle(i*size + i*spacing, -this._radius - this._borderWidth/2 - size/5, size, size/3);
                 }
             }
             cr.strokePreserve();
