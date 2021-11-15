@@ -635,9 +635,7 @@ var RunningIndicatorBinary = class DashToDock_RunningIndicatorBinary extends Run
 
         if (this._source.running) {
             let size =  Math.max(this._width/11, this._borderWidth);
-            let padding = this._borderWidth;
             let spacing = Math.ceil(this._width/18); // separation between the dots
-            let yOffset = this._height - padding - size;
             let binaryValue = String("0000" + (n >>> 0).toString(2)).slice(-4);
 
             cr.setLineWidth(this._borderWidth);
