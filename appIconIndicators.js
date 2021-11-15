@@ -63,7 +63,7 @@ var AppIconIndicator = class DashToDock_AppIconIndicator {
                 break;
 
             case RunningIndicatorStyle.DOTS:
-                runningIndicator = new RunningIndicatorBinary(source);
+                runningIndicator = new RunningIndicatorDots(source);
                 break;
 
             case RunningIndicatorStyle.SQUARES:
