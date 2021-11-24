@@ -468,7 +468,7 @@ var DockedDash = GObject.registerClass({
         if (!Main.overview.isDummy && Main.overview.viewSelector._activePage == null)
             Main.overview.viewSelector._activePage = Main.overview.viewSelector._workspacesPage;
 
-        this._updateVisibilityMode();
+        this._updateVisibilityMode(true);
 
         // In case we are already inside the overview when the extension is loaded,
         // for instance on unlocking the screen if it was locked with the overview open.
@@ -580,7 +580,11 @@ var DockedDash = GObject.registerClass({
         ], [
             settings,
             'changed::manualhide',
-            this._updateVisibilityMode.bind(this)
+            () => {
+                    this._untrackDock();
+                    this._trackDock();
+                    this._updateVisibilityMode();
+            }
         ], [
             settings,
             'changed::intellihide',
@@ -635,7 +639,7 @@ var DockedDash = GObject.registerClass({
     /**
      * This is call when visibility settings change
      */
-    _updateVisibilityMode() {
+    _updateVisibilityMode(init = false) {
         let settings = DockManager.settings;
 
         this._manualhideIsEnabled = settings.get_boolean('manualhide');
@@ -665,7 +669,7 @@ var DockedDash = GObject.registerClass({
         else
             this._dashSpacer.setDashActor(this._box);
 
-        this._updateDashVisibility();
+        this._updateDashVisibility(init);
     }
 
     /**
@@ -676,31 +680,35 @@ var DockedDash = GObject.registerClass({
      * autohide
      * overview visibility
      */
-    _updateDashVisibility() {
+    _updateDashVisibility(init = false) {
         if (Main.overview.visibleTarget)
             return;
 
         let settings = DockManager.settings;
 
+        // Set animation out time to 0 when initializing
+        let animation_in_time = settings.get_double('animation-time');
+        let animation_out_time = init ? 0 : animation_in_time;
+
         if (this._manualhideIsEnabled) {
             this._removeAnimations();
-            this._animateOut(settings.get_double('animation-time'), 0);
+            this._animateOut(animation_out_time, 0);
         }
         else if (this._fixedIsEnabled) {
             this._removeAnimations();
-            this._animateIn(settings.get_double('animation-time'), 0);
+            this._animateIn(animation_in_time, 0);
         }
         else if (this._intellihideIsEnabled) {
             if (this._intellihide.getOverlapStatus()) {
                 this._ignoreHover = false;
                 // Do not hide if autohide is enabled and mouse is hover
                 if (!this._box.hover || !this._autohideIsEnabled)
-                    this._animateOut(settings.get_double('animation-time'), 0);
+                    this._animateOut(animation_out_time, 0);
             }
             else {
                 this._ignoreHover = true;
                 this._removeAnimations();
-                this._animateIn(settings.get_double('animation-time'), 0);
+                this._animateIn(animation_in_time, 0);
             }
         }
         else {
@@ -709,12 +717,12 @@ var DockedDash = GObject.registerClass({
                 global.sync_pointer();
 
                 if (this._box.hover)
-                    this._animateIn(settings.get_double('animation-time'), 0);
+                    this._animateIn(animation_in_time, 0);
                 else
-                    this._animateOut(settings.get_double('animation-time'), 0);
+                    this._animateOut(animation_out_time, 0);
             }
             else
-                this._animateOut(settings.get_double('animation-time'), 0);
+                this._animateOut(animation_out_time, 0);
         }
     }
 
