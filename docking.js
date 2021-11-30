@@ -405,14 +405,8 @@ var DockedDash = GObject.registerClass({
         if (Main.uiGroup.contains(global.top_window_group))
             Main.uiGroup.set_child_below_sibling(this, global.top_window_group);
 
-        if (settings.get_boolean('dock-fixed')) {
-            // Note: tracking the fullscreen directly on the slider actor causes some hiccups when fullscreening
-            // windows of certain applications
-            Main.layoutManager._trackActor(this, {affectsInputRegion: false, trackFullscreen: true});
-            Main.layoutManager._trackActor(this._slider, {affectsStruts: true});
-        }
-        else
-            Main.layoutManager._trackActor(this._slider);
+        // Add dock Actors to Layout Manager
+        this._trackDock();
 
         // Create and apply height/width constraint to the dash.
         if (this._isHorizontal) {
@@ -435,6 +429,29 @@ var DockedDash = GObject.registerClass({
         this._resetPosition();
 
         this.connect('destroy', this._onDestroy.bind(this));
+    }
+
+    _untrackDock() {
+        Main.layoutManager._untrackActor(this);
+        Main.layoutManager._untrackActor(this._slider);
+    }
+
+    _trackDock() {
+        // If we are in manual hide mode, then slider does not affect struts
+        // regardless of visibility.
+        let isManualHide = DockManager.settings.get_boolean('manualhide')
+        if (DockManager.settings.get_boolean('dock-fixed')) {
+            // Note: tracking the fullscreen directly on the slider actor
+            // causes some hiccups when fullscreening windows of certain
+            // applications
+            if (Main.layoutManager._findActor(this) == -1)
+                Main.layoutManager._trackActor(this, { affectsInputRegion: false, trackFullscreen: true });
+            if (Main.layoutManager._findActor(this._slider) == -1)
+                Main.layoutManager._trackActor(this._slider, { affectsStruts: !isManualHide });
+        } else {
+            if (Main.layoutManager._findActor(this._slider) == -1)
+                Main.layoutManager._trackActor(this._slider);
+        }
     }
 
     _initialize() {
@@ -550,16 +567,8 @@ var DockedDash = GObject.registerClass({
             settings,
             'changed::dock-fixed',
             () => {
-                    if (settings.get_boolean('dock-fixed')) {
-                        Main.layoutManager._untrackActor(this);
-                        Main.layoutManager._trackActor(this, {affectsInputRegion: false, trackFullscreen: true});
-                        Main.layoutManager._untrackActor(this._slider);
-                        Main.layoutManager._trackActor(this._slider, {affectsStruts: true});
-                    } else {
-                        Main.layoutManager._untrackActor(this);
-                        Main.layoutManager._untrackActor(this._slider);
-                        Main.layoutManager._trackActor(this._slider);
-                    }
+                    this._untrackDock();
+                    this._trackDock();
 
                     this._resetPosition();
 
