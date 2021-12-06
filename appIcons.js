@@ -611,7 +611,7 @@ var DockAbstractAppIcon = GObject.registerClass({
         }
 
         // Hide overview except when action mode requires it
-        if(shouldHideOverview) {
+        if(shouldHideOverview && this.app.id !== 'pop-cosmic-applications.desktop') {
             Main.overview.hide();
         }
     }
