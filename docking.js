@@ -240,6 +240,9 @@ var DockedDash = GObject.registerClass({
         // initialize dock state
         this._dockState = State.HIDDEN;
 
+        // Set dock as initializing
+        this._initializing = true;
+
         // Put dock on the required monitor
         this._monitor = Main.layoutManager.monitors[this._monitorIndex];
 
@@ -395,14 +398,8 @@ var DockedDash = GObject.registerClass({
         if (Main.uiGroup.contains(global.top_window_group))
             Main.uiGroup.set_child_below_sibling(this, global.top_window_group);
 
-        if (settings.get_boolean('dock-fixed')) {
-            // Note: tracking the fullscreen directly on the slider actor causes some hiccups when fullscreening
-            // windows of certain applications
-            Main.layoutManager._trackActor(this, {affectsInputRegion: false, trackFullscreen: true});
-            Main.layoutManager._trackActor(this._slider, {affectsStruts: true});
-        }
-        else
-            Main.layoutManager._trackActor(this._slider);
+        // Add dock Actors to Layout Manager
+        this._trackDock();
 
         // Create and apply height/width constraint to the dash.
         if (this._isHorizontal) {
@@ -444,11 +441,14 @@ var DockedDash = GObject.registerClass({
     }
 
     _trackDock() {
+        let isManualHide = DockManager.settings.get_boolean('manualhide');
         if (DockManager.settings.dockFixed) {
+            // Note: tracking the fullscreen directly on the slider actor causes
+            // some hiccups when fullscreening windows of certain applications
             if (Main.layoutManager._findActor(this) == -1)
                 Main.layoutManager._trackActor(this, { affectsInputRegion: false, trackFullscreen: true });
             if (Main.layoutManager._findActor(this._slider) == -1)
-                Main.layoutManager._trackActor(this._slider, { affectsStruts: true });
+                Main.layoutManager._trackActor(this._slider, { affectsStruts: !isManualHide });
         } else {
             if (Main.layoutManager._findActor(this._slider) == -1)
                 Main.layoutManager._trackActor(this._slider);
@@ -475,6 +475,9 @@ var DockedDash = GObject.registerClass({
 
         // setup dwelling system if pressure barriers are not available
         this._setupDockDwellIfNeeded();
+
+	// Set dock as no longer initializing
+	this._initializing = false;
     }
 
     _onDestroy() {
@@ -557,8 +560,8 @@ var DockedDash = GObject.registerClass({
             settings,
             'changed::dock-fixed',
             () => {
-                this._untrackDock();
-                this._trackDock();
+                    this._untrackDock();
+                    this._trackDock();
 
                     this._resetPosition();
 
@@ -578,7 +581,11 @@ var DockedDash = GObject.registerClass({
         ], [
             settings,
             'changed::manualhide',
-            this._updateVisibilityMode.bind(this)
+            () => {
+                    this._untrackDock();
+                    this._trackDock();
+                    this._updateVisibilityMode();
+            }
         ], [
             settings,
             'changed::autohide',
@@ -664,25 +671,29 @@ var DockedDash = GObject.registerClass({
 
         let settings = DockManager.settings;
 
-        if (this._manualhideIsEnabled) {
+        // Set animation out time to 0 when initializing
+        let animation_in_time = settings.get_double('animation-time');
+        let animation_out_time = this._initializing ? 0 : animation_in_time;
+
+	if (this._manualhideIsEnabled) {
             this._removeAnimations();
-            this._animateOut(settings.get_double('animation-time'), 0);
+            this._animateOut(animation_out_time, 0);
         }
         else if (DockManager.settings.dockFixed) {
             this._removeAnimations();
-            this._animateIn(settings.get_double('animation-time'), 0);
+            this._animateIn(animation_in_time, 0);
         }
         else if (this._intellihideIsEnabled) {
             if (!this.dash.requiresVisibility && this._intellihide.getOverlapStatus()) {
                 this._ignoreHover = false;
                 // Do not hide if autohide is enabled and mouse is hover
                 if (!this._box.hover || !this._autohideIsEnabled)
-                    this._animateOut(settings.get_double('animation-time'), 0);
+                    this._animateOut(animation_out_time, 0);
             }
             else {
                 this._ignoreHover = true;
                 this._removeAnimations();
-                this._animateIn(settings.get_double('animation-time'), 0);
+                this._animateIn(animation_in_time, 0);
             }
         }
         else {
@@ -690,12 +701,12 @@ var DockedDash = GObject.registerClass({
                 this._ignoreHover = false;
 
                 if (this._box.hover || this.dash.requiresVisibility)
-                    this._animateIn(settings.get_double('animation-time'), 0);
+                    this._animateIn(animation_in_time, 0);
                 else
-                    this._animateOut(settings.get_double('animation-time'), 0);
+                    this._animateOut(animation_out_time, 0);
             }
             else
-                this._animateOut(settings.get_double('animation-time'), 0);
+                this._animateOut(animation_out_time, 0);
         }
     }
 
