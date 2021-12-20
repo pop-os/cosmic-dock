@@ -1,6 +1,7 @@
 {
 "shell-version": [
-    "40"
+    "40",
+    "41"
 ],
 "uuid": "cosmic-dock@system76.com",
 "name": "Cosmic Dock",
