@@ -2261,7 +2261,7 @@ var DockManager = class DashToDock_DockManager {
         this._removables = null;
         this._iconTheme.destroy();
         this._remoteModel.destroy();
-        this._settings.run_dispose();
+        this._settings = null;
         this._settings = null;
         this._oldDash = null;
 
