@@ -371,8 +371,11 @@ class WindowPreviewMenuItem extends PopupMenu.PopupBaseMenuItem {
     }
 
     _getWindowPreviewSize() {
+        global.log("gnome-shell debug 15")
         let mutterWindow = this._window.get_compositor_private();
+        global.log("gnome-shell debug 16")
         let [width, height] = mutterWindow.get_size();
+        global.log("gnome-shell debug 17")
 
         let scale;
 
@@ -392,12 +395,16 @@ class WindowPreviewMenuItem extends PopupMenu.PopupBaseMenuItem {
 
     _cloneTexture(metaWin){
 
+        global.log("gnome-shell debug 13")
         let mutterWindow = metaWin.get_compositor_private();
+        global.log("gnome-shell debug 14")
 
         // Newly-created windows are added to a workspace before
         // the compositor finds out about them...
         // Moreover sometimes they return an empty texture, thus as a workarounf also check for it size
+        global.log("gnome-shell debug 11")
         if (!mutterWindow || !mutterWindow.get_texture() || !mutterWindow.get_size()[0]) {
+            global.log("gnome-shell debug 12")
             this._cloneTextureId = GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
                 // Check if there's still a point in getting the texture,
                 // otherwise this could go on indefinitely
@@ -410,14 +417,18 @@ class WindowPreviewMenuItem extends PopupMenu.PopupBaseMenuItem {
             return;
         }
 
+        global.log("gnome-shell debug 9")
         let clone = new Clutter.Clone ({ source: mutterWindow,
                                          reactive: true,
                                          width: this._width * this._scale,
                                          height: this._height * this._scale });
+        global.log("gnome-shell debug 10")
 
         // when the source actor is destroyed, i.e. the window closed, first destroy the clone
         // and then destroy the menu item (do this animating out)
+        global.log("gnome-shell debug 7")
         this._destroyId = mutterWindow.connect('destroy', () => {
+            global.log("gnome-shell debug 8")
             clone.destroy();
             this._destroyId = 0; // avoid to try to disconnect this signal from mutterWindow in _onDestroy(),
                                  // as the object was just destroyed
@@ -425,12 +436,16 @@ class WindowPreviewMenuItem extends PopupMenu.PopupBaseMenuItem {
         });
 
         this._clone = clone;
+        global.log("gnome-shell debug 5")
         this._mutterWindow = mutterWindow;
+        global.log("gnome-shell debug 6")
         this._cloneBin.set_child(this._clone);
 
         this._clone.connect('destroy', () => {
             if (this._destroyId) {
+                global.log("gnome-shell debug 3")
                 mutterWindow.disconnect(this._destroyId);
+                global.log("gnome-shell debug 4")
                 this._destroyId = 0;
             }
             this._clone = null;
@@ -597,7 +612,9 @@ class WindowPreviewMenuItem extends PopupMenu.PopupBaseMenuItem {
         }
 
         if (this._destroyId > 0) {
+            global.log("gnome-shell debug 1")
             this._mutterWindow.disconnect(this._destroyId);
+            global.log("gnome-shell debug 2")
             this._destroyId = 0;
         }
 
