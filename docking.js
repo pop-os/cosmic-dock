@@ -1836,18 +1836,27 @@ var DockManager = class DashToDock_DockManager {
         // and reconnecting monitors), just do nothing. When a monitor will be connected we we'll be notified and
         // and thus create the docks. This prevents pointing trying to access monitors throughout the code, were we
         // are assuming that at least the primary monitor is present.
+
+        global.log("gnome-shell debug 16\n")
         if (Main.layoutManager.monitors.length <= 0) {
             return;
         }
+        global.log("gnome-shell debug 17\n")
 
         this._preferredMonitorIndex = this._settings.get_int('preferred-monitor');
+        global.log("gnome-shell debug 18\n")
         // In case of multi-monitor, we consider the dock on the primary monitor to be the preferred (main) one
         // regardless of the settings
         // The dock goes on the primary monitor also if the settings are incosistent (e.g. desired monitor not connected).
+        global.log("gnome-shell debug 19\n")
         if (this._settings.get_boolean('multi-monitor') ||
+        global.log("gnome-shell debug 20\n")
             this._preferredMonitorIndex < 0 || this._preferredMonitorIndex > Main.layoutManager.monitors.length - 1
+        global.log("gnome-shell debug 21\n")
             ) {
+        global.log("gnome-shell debug 22\n")
             this._preferredMonitorIndex = Main.layoutManager.primaryIndex;
+        global.log("gnome-shell debug 23\n")
         } else {
             // Primary monitor used to be always 0 in Gdk, but the shell has a different
             // concept (where the order depends on mutter order).
@@ -1856,11 +1865,15 @@ var DockManager = class DashToDock_DockManager {
             // assume that the gsettings monitor numbering follows the old strategy.
             // This ensure the indexing in the settings and in the shell are matched,
             // i.e. that we start counting from the primaryMonitorIndex
+        global.log("gnome-shell debug 24\n")
             this._preferredMonitorIndex = (Main.layoutManager.primaryIndex + this._preferredMonitorIndex) % Main.layoutManager.monitors.length ;
+        global.log("gnome-shell debug 25\n")
         }
 
         // First we create the main Dock, to get the extra features to bind to this one
+        global.log("gnome-shell debug 26\n")
         let dock = new DockedDash(this._preferredMonitorIndex);
+        global.log("gnome-shell debug 27\n")
         this._allDocks.push(dock);
 
         // connect app icon into the view selector
