@@ -1838,6 +1838,9 @@ var DockManager = class DashToDock_DockManager {
         // are assuming that at least the primary monitor is present.
 
         global.log("gnome-shell debug 16\n")
+        global.log("gnome-shell debug" + Main.layoutManager + "\n")
+        global.log("gnome-shell debug" + Main.layoutManager.monitors + "\n")
+        global.log("gnome-shell debug" + Main.layoutManager.monitors.length + "\n")
         if (Main.layoutManager.monitors.length <= 0) {
             return;
         }
