@@ -1845,6 +1845,7 @@ var DockManager = class DashToDock_DockManager {
             global.log("gnome-shell yep its null\n");
         } else  {global.log("nah its not null \n")}
         if (Main.layoutManager.monitors.length <= 0) {
+            globla.log("returning because <= 0\n")
             return;
         }
         global.log("gnome-shell debug 17\n")
