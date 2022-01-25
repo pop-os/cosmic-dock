@@ -1850,9 +1850,7 @@ var DockManager = class DashToDock_DockManager {
         // The dock goes on the primary monitor also if the settings are incosistent (e.g. desired monitor not connected).
         global.log("gnome-shell debug 19\n")
         if (this._settings.get_boolean('multi-monitor') ||
-        global.log("gnome-shell debug 20\n")
             this._preferredMonitorIndex < 0 || this._preferredMonitorIndex > Main.layoutManager.monitors.length - 1
-        global.log("gnome-shell debug 21\n")
             ) {
         global.log("gnome-shell debug 22\n")
             this._preferredMonitorIndex = Main.layoutManager.primaryIndex;
