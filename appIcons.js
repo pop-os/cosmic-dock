@@ -1007,7 +1007,10 @@ const DockAppIconMenu = class DockAppIconMenu extends PopupMenu.PopupMenu {
                 this._appendSeparator();
             }
 
-            if (Docking.DockManager.getDefault().discreteGpuAvailable &&
+            let vendor = Shell.util_get_gl_vendor();
+            let nvidia_only = vendor == "NVIDIA Corporation" || vendor == "nouveau";
+
+            if (Docking.DockManager.getDefault().discreteGpuAvailable && !nvidia_only &&
                 this._source.app.state == Shell.AppState.STOPPED) {
                 const appPrefersNonDefaultGPU = appInfo.get_boolean('PrefersNonDefaultGPU');
                 const gpuPref = appPrefersNonDefaultGPU
