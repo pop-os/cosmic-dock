@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: System76 <info@system76.com>
 Build-Depends: debhelper (>= 10),
                dh-translations,
-               eslint <!nocheck>,
                libglib2.0-bin,
                node-chalk <!nocheck>,
                node-js-yaml <!nocheck>,
