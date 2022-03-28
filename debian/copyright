@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: ubuntu-dock
-Source: https://micheleg.github.io/dash-to-dock
+Upstream-Name: cosmic-dock
+Source: https://github.com/pop-os/gnome-shell-extension-cosmic-dock
 
 Files: *
 Copyright: 2012-2017 Michele Gaio <micxgx@gmail.com>
@@ -20,4 +20,3 @@ License: GPL-2+
  .
  On Debian systems, the complete text of the GNU General
  Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
-

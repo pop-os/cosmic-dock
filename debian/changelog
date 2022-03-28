@@ -1,3 +1,9 @@
+gnome-shell-extension-cosmic-dock (72~ubuntu2pop0) jammy; urgency=medium
+
+  * Pop!_OS patches
+
+ -- Jeremy Soller <jeremy@system76.com>  Mon, 28 Mar 2022 08:59:39 -0600
+
 gnome-shell-extension-ubuntu-dock (72~ubuntu2) jammy; urgency=medium
 
   [ Marco Trevisan (Treviño) ]

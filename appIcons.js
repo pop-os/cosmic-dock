@@ -1287,7 +1287,7 @@ var DockShowAppsIcon = GObject.registerClass({
     }
 
     popupMenu() {
-        if (Me.metadata.uuid === 'ubuntu-dock@ubuntu.com')
+        if (Me.metadata.uuid === 'cosmic-dock@system76.com')
             return false;
 
         this._removeMenuTimeout();
