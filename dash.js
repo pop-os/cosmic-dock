@@ -723,6 +723,14 @@ var DockDash = GObject.registerClass({
         const dockManager = Docking.DockManager.getDefault();
         const { settings } = dockManager;
 
+        if (Docking.DockManager.settings.dockExtended) {
+            if (!this._isHorizontal) {
+                this._scrollView.y_align = Clutter.ActorAlign.CENTER;
+            } else {
+                this._scrollView.x_align = Clutter.ActorAlign.CENTER;
+            }
+        }
+
         if (settings.isolateWorkspaces ||
             settings.isolateMonitors) {
             // When using isolation, we filter out apps that have no windows in
