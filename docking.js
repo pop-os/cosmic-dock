@@ -687,7 +687,6 @@ var DockedDash = GObject.registerClass({
     }
 
     _onOverviewHiding() {
-        this._ignoreHover = false;
         this._intellihide.enable();
         this._updateDashVisibility();
     }
