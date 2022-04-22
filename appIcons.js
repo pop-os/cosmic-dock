@@ -616,7 +616,7 @@ var DockAbstractAppIcon = GObject.registerClass({
         }
 
         // Hide overview except when action mode requires it
-        if(shouldHideOverview && this.app.id !== 'pop-cosmic-applications.desktop') {
+        if(Main.overview.visible && shouldHideOverview && this.app.id !== 'pop-cosmic-applications.desktop') {
             Main.overview.hide();
         }
     }
@@ -637,6 +637,8 @@ var DockAbstractAppIcon = GObject.registerClass({
             this._previewMenu.connect('open-state-changed', (menu, isPoppedUp) => {
                 if (!isPoppedUp)
                     this._onMenuPoppedDown();
+                else
+                    this.emit('menu-state-changed', true);
             });
             let id = Main.overview.connect('hiding', () => {
                 this._previewMenu.close();
