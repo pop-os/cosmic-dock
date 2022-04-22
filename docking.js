@@ -291,10 +291,15 @@ var DockedDash = GObject.registerClass({
             'status-changed',
             this._updateDashVisibility.bind(this)
         ], [
+            // keep dock visible while popupmenu is open
+            this.dash,
+            'menu-opened',
+            this._onMenuOpened.bind(this)
+        ], [
             // sync hover after a popupmenu is closed
             this.dash,
             'menu-closed',
-            () => { this._box.sync_hover() }
+            this._onMenuClosed.bind(this)
         ], [
             this.dash,
             'notify::requires-visibility',
@@ -693,6 +698,18 @@ var DockedDash = GObject.registerClass({
 
     _onOverviewHidden() {
         this.remove_style_class_name('overview');
+    }
+
+    _onMenuOpened() {
+        this._ignoreHover = true;
+        this._intellihide.disable();
+        this._removeAnimations();
+        this._animateIn(DockManager.settings.animationTime, 0);
+    }
+
+    _onMenuClosed() {
+        this._intellihide.enable();
+        this._updateDashVisibility();
     }
 
     _hoverChanged() {
