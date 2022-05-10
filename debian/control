@@ -10,9 +10,9 @@ Build-Depends: debhelper (>= 10),
                node-strip-ansi <!nocheck>,
                sassc,
 Standards-Version: 4.1.1
-Vcs-Git: https://github.com/pop-os/gnome-shell-extension-cosmic-dock.git
-Vcs-Browser: https://github.com/pop-os/gnome-shell-extension-cosmic-dock
-Homepage: https://github.com/pop-os/gnome-shell-extension-cosmic-dock
+Vcs-Git: https://github.com/pop-os/cosmic-dock.git
+Vcs-Browser: https://github.com/pop-os/cosmic-dock
+Homepage: https://github.com/pop-os/cosmic-dock
 
 Package: gnome-shell-extension-cosmic-dock
 Architecture: all
