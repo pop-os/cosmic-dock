@@ -383,6 +383,14 @@ function getPosition() {
     return position;
 }
 
+function getAlignment() {
+    return [
+        Clutter.ActorAlign.CENTER,
+        Clutter.ActorAlign.START,
+        Clutter.ActorAlign.END
+    ][Docking.DockManager.settings.dockAlignment];
+}
+
 function getPreviewScale() {
     return Docking.DockManager.settings.previewSizeScale;
 }

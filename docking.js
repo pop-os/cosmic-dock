@@ -1851,6 +1851,10 @@ var DockManager = class DashToDock_DockManager {
             this._toggle.bind(this)
         ], [
             this._settings,
+            'changed::dock-alignment',
+            this._toggle.bind(this)
+        ], [
+            this._settings,
             'changed::extend-height',
             () => this._adjustPanelCorners()
         ], [

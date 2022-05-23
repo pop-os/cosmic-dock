@@ -25,6 +25,11 @@
     <value value='2' nick='BOTTOM'/>
     <value value='3' nick='LEFT'/>
   </enum>
+  <enum id='org.gnome.shell.extensions.dash-to-dock.alignment'>
+    <value value='0' nick='CENTER'/>
+    <value value='1' nick='START'/>
+    <value value='2' nick='END'/>
+  </enum>
   <enum id='org.gnome.shell.extensions.dash-to-dock.intellihide-mode'>
     <value value='0' nick='ALL_WINDOWS'/>
     <value value='1' nick='FOCUS_APPLICATION_WINDOWS'/>
@@ -52,6 +57,11 @@
       <default>'BOTTOM'</default>
       <summary>Dock position</summary>
       <description>Dock is shown on the Left, Right, Top or Bottom side of the screen.</description>
+    </key>
+    <key name="dock-alignment" enum="org.gnome.shell.extensions.dash-to-dock.alignment">
+      <default>'CENTER'</default>
+      <summary>Dock icon alignment</summary>
+      <description>Icons are aligned to Start, Center, or End when dock extended to the edges of the screen.</description>
     </key>
     <key type="d" name="animation-time">
       <default>0.2</default>
