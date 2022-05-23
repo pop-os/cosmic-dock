@@ -29,6 +29,9 @@ endif
 
 all: extension
 
+check:
+	# Make check not implemented
+
 clean:
 	rm -f ./schemas/gschemas.compiled
 	rm -f stylesheet.css
