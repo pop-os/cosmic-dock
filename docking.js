@@ -1805,6 +1805,7 @@ var DockManager = class DashToDock_DockManager {
     _bindSettingsChanges() {
         this.settings.settingsSchema.list_keys().forEach(key => {
             const camelKey = key.replace(/-([a-z\d])/g, k => k[1].toUpperCase());
+            console.log("key", key, camelKey);
             const updateSetting = () => {
                 const schemaKey = this.settings.settingsSchema.get_key(key);
                 if (schemaKey.get_range().deepUnpack()[0] === 'enum')
@@ -1848,6 +1849,10 @@ var DockManager = class DashToDock_DockManager {
         ], [
             this._settings,
             'changed::dock-position',
+            this._toggle.bind(this)
+        ], [
+            this._settings,
+            'changed::dock-alignment',
             this._toggle.bind(this)
         ], [
             this._settings,
