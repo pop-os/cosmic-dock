@@ -258,9 +258,9 @@ var DockedDash = GObject.registerClass({
             side: this._position,
             slide_x: Main.layoutManager._startingUp ? 0 : 1,
             ...(this._isHorizontal ? {
-                x_align: Clutter.ActorAlign.CENTER,
+                x_align: Utils.getAlignment(),
             } : {
-                y_align: Clutter.ActorAlign.CENTER,
+                y_align: Utils.getAlignment(),
             })
         });
 
