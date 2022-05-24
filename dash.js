@@ -909,9 +909,9 @@ var DockDash = GObject.registerClass({
                 this._separator = new St.Widget({
                     style_class: 'dash-separator',
                     x_align: this._isHorizontal ?
-                        Clutter.ActorAlign.FILL : this._alignment,
+                        Clutter.ActorAlign.FILL : Clutter.ActorAlign.CENTER,
                     y_align: this._isHorizontal ?
-                        this._alignment : Clutter.ActorAlign.FILL,
+                        Clutter.ActorAlign.CENTER : Clutter.ActorAlign.FILL,
                     width: this._isHorizontal ? -1 : this.iconSize,
                     height: this._isHorizontal ? this.iconSize : -1,
                     reactive: true,
