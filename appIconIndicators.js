@@ -395,7 +395,7 @@ var RunningIndicatorDots = class DashToDock_RunningIndicatorDots extends Running
         // Define the radius as an arbitrary size, but keep large enough to account
         // for the drawing of the border.
         this._radius = Math.max(this._width/22, this._borderWidth/2);
-        this._padding = 0; // distance from the margin
+        this._padding = 3; // distance from the margin
         this._spacing = this._radius + this._borderWidth; // separation between the dots
      }
 
