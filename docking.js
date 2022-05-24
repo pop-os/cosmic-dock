@@ -1103,7 +1103,7 @@ var DockedDash = GObject.registerClass({
             if (this._position == St.Side.BOTTOM)
                 pos_y += this._monitor.height;
 
-            this.x = workArea.x + Math.round((1 - fraction) / 2 * workArea.width);
+            this.x = workArea.x;
             this.y = pos_y;
 
             if (extendHeight) {
@@ -1121,7 +1121,7 @@ var DockedDash = GObject.registerClass({
                 pos_x += this._monitor.width;
 
             this.x = pos_x;
-            this.y = workArea.y + Math.round((1 - fraction) / 2 * workArea.height);
+            this.y = workArea.y;
 
             this._signalsHandler.removeWithLabel('verticalOffsetChecker');
 
