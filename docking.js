@@ -196,6 +196,7 @@ var DockedDash = GObject.registerClass({
 }, class DashToDock extends St.Bin {
     _init(params) {
         this._position = Utils.getPosition();
+        this._alignment = Utils.getAlignment();
         const positionStyleClass = ['top', 'right', 'bottom', 'left'];
 
         // This is the centering actor
@@ -1106,6 +1107,14 @@ var DockedDash = GObject.registerClass({
             this.x = workArea.x;
             this.y = pos_y;
 
+            let offset = (1 - fraction) / 2 * workArea.width;
+            if (this._alignment == Clutter.ActorAlign.CENTER)
+                this.x += Math.round(offset);
+            else if (!this._rtl && this._alignment == Clutter.ActorAlign.END)
+                this.x += Math.round(2 * offset);
+            else if (this._rtl && this._alignment == Clutter.ActorAlign.START)
+                this.x += Math.round(2 * offset);
+
             if (extendHeight) {
                 this.dash._container.set_width(this.width);
                 this.add_style_class_name('extended');
@@ -1122,6 +1131,12 @@ var DockedDash = GObject.registerClass({
 
             this.x = pos_x;
             this.y = workArea.y;
+
+            let offset = (1 - fraction) / 2 * workArea.height;
+            if (this._alignment == Clutter.ActorAlign.CENTER)
+                this.y += Math.round(offset);
+            else if (this._alignment == Clutter.ActorAlign.END)
+                this.y += Math.round(2 * offset);
 
             this._signalsHandler.removeWithLabel('verticalOffsetChecker');
 
