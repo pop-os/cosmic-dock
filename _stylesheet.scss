@@ -45,7 +45,9 @@ $osd_fg_color: #eeeeec;
         padding: 0;
         
         #dash {
-            margin: 0;
+            margin: $dock_side_margin;
+            margin-#{$side}: 0;
+            margin-#{opposite($side)}: 0;
             padding: 0;
 
             .dash-background {

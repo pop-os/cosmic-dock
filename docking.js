@@ -196,6 +196,7 @@ var DockedDash = GObject.registerClass({
 }, class DashToDock extends St.Bin {
     _init(params) {
         this._position = Utils.getPosition();
+        this._alignment = Utils.getAlignment();
         const positionStyleClass = ['top', 'right', 'bottom', 'left'];
 
         // This is the centering actor
@@ -258,9 +259,9 @@ var DockedDash = GObject.registerClass({
             side: this._position,
             slide_x: Main.layoutManager._startingUp ? 0 : 1,
             ...(this._isHorizontal ? {
-                x_align: Clutter.ActorAlign.CENTER,
+                x_align: Utils.getAlignment(),
             } : {
-                y_align: Clutter.ActorAlign.CENTER,
+                y_align: Utils.getAlignment(),
             })
         });
 
@@ -1103,8 +1104,16 @@ var DockedDash = GObject.registerClass({
             if (this._position == St.Side.BOTTOM)
                 pos_y += this._monitor.height;
 
-            this.x = workArea.x + Math.round((1 - fraction) / 2 * workArea.width);
+            this.x = workArea.x;
             this.y = pos_y;
+
+            let offset = (1 - fraction) / 2 * workArea.width;
+            if (this._alignment == Clutter.ActorAlign.CENTER)
+                this.x += Math.round(offset);
+            else if (!this._rtl && this._alignment == Clutter.ActorAlign.END)
+                this.x += Math.round(2 * offset);
+            else if (this._rtl && this._alignment == Clutter.ActorAlign.START)
+                this.x += Math.round(2 * offset);
 
             if (extendHeight) {
                 this.dash._container.set_width(this.width);
@@ -1121,7 +1130,13 @@ var DockedDash = GObject.registerClass({
                 pos_x += this._monitor.width;
 
             this.x = pos_x;
-            this.y = workArea.y + Math.round((1 - fraction) / 2 * workArea.height);
+            this.y = workArea.y;
+
+            let offset = (1 - fraction) / 2 * workArea.height;
+            if (this._alignment == Clutter.ActorAlign.CENTER)
+                this.y += Math.round(offset);
+            else if (this._alignment == Clutter.ActorAlign.END)
+                this.y += Math.round(2 * offset);
 
             this._signalsHandler.removeWithLabel('verticalOffsetChecker');
 
