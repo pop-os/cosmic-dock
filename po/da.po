@@ -448,7 +448,7 @@ msgstr "Isoler skærme."
 #~ "Applications</i> icon are active."
 #~ msgstr ""
 #~ "Med fast ikonstørrelse, kun kanten af docken <i>Vis "
-#~ ""Applikationsikonet</i> er aktivt."
+#~ "Applikationsikonet</i> er aktivt."
 
 #~ msgid "Switch workspace by scrolling on the dock"
 #~ msgstr "Skift arbejdsområde ved at rulle på docken"
@@ -559,7 +559,7 @@ msgstr "Isoler skærme."
 #~ "tilpasning kan anvendes uafhængigt af hinanden"
 
 #~ msgid "Shrink the dash size by reducing padding"
-#~ msgstr Formindsk dashen ved at reducere fyld"
+#~ msgstr "Formindsk dashen ved at reducere fyld"
 
 #~ msgid "Apply custom theme (work only with the default Adwaita theme)"
 #~ msgstr "Anvend brugerdefineret tema (fungerer kun med standard Adwaita-temaet)"
