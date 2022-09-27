@@ -8,8 +8,7 @@ const ExtensionSystem = imports.ui.extensionSystem;
 
 // We declare this with var so it can be accessed by other extensions in
 // GNOME Shell 3.26+ (mozjs52+).
-var dockManager;
-
+var dockManager = null
 
 let _extensionlistenerId;
 
@@ -31,6 +30,7 @@ function disable() {
     try {
         if (dockManager != null) {
             dockManager.destroy();
+            dockManager = null
         }
     } catch(e) {
         log('Failed to destroy dockManager: %s'.format(e.message));
@@ -52,5 +52,6 @@ function conditionallyenabledock() {
         dockManager = new Docking.DockManager();
     } else if (!to_enable && dockManager) {
         dockManager.destroy();
+        dockManager = null
     }
 }
