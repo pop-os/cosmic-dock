@@ -404,9 +404,15 @@ var DockAbstractAppIcon = GObject.registerClass({
                     const { dockFixed: fixedDock } = Docking.DockManager.settings;
                     let additional_margin = this._isHorizontal && !fixedDock ? Main.overview.dash.height : 0;
                     let verticalMargins = this._menu.actor.margin_top + this._menu.actor.margin_bottom;
+
+                    let scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+                    // Apparently "scale" can be invalid if the monitor is freshly unplugged/plugged in
+                    // So we need to just assume scale is the default of 1 in this case...
+                    if (scale == null || isNaN(scale) || scale < 1) { scale = 1; }
+
                     // Also set a max width to the menu, so long labels (long windows title) get truncated
-                    this._menu.actor.style = ('max-height: ' + Math.round(workArea.height - additional_margin - verticalMargins) + 'px;' +
-                                              'max-width: 400px');
+                    this._menu.actor.style = ('max-height: ' + parseInt((workArea.height - additional_margin - verticalMargins)/scale, 10) + 'px;' +
+                        'max-width: 400px');
                 }
             });
             let id = Main.overview.connect('hiding', () => {

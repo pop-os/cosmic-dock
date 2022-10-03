@@ -37,9 +37,15 @@ var WindowPreviewMenu = class DashToDock_WindowPreviewMenu extends PopupMenu.Pop
         this._app = this._source.app;
         let monitorIndex = this._source.monitorIndex;
 
+        let scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+        // Apparently the scale can be invalid when a monitor is freshly unplugged/plugged in
+        // So we will assume the scale is just 1.
+        if (scale == null || isNaN(scale) || scale < 1) { scale = 1; }
+
         this.actor.add_style_class_name('app-menu');
-        this.actor.set_style('max-width: '  + (Main.layoutManager.monitors[monitorIndex].width  - 22) + 'px; ' +
-                             'max-height: ' + (Main.layoutManager.monitors[monitorIndex].height - 22) + 'px;');
+        this.actor.set_name('dashtodockWindowPreviewMenu');
+        this.actor.set_style('max-width: '  + (parseInt((Main.layoutManager.monitors[monitorIndex].width - 22) / scale, 10)) + 'px; ' +
+            'max-height: ' + (parseInt((Main.layoutManager.monitors[monitorIndex].height - 22) / scale, 10)) + 'px;');
         this.actor.hide();
 
         // Chain our visibility and lifecycle to that of the source
